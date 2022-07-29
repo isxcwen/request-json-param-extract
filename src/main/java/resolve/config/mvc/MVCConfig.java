@@ -1,4 +1,4 @@
-package com.paramresolve.config;
+package resolve.config.mvc;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.context.annotation.Configuration;

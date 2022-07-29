@@ -1,4 +1,4 @@
-package com.paramresolve.config;
+package resolve.config.webflux;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;

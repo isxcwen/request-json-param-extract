@@ -1,4 +1,4 @@
-package com.paramresolve.config;
+package resolve.annotations;
 
 import org.springframework.web.bind.annotation.ValueConstants;
 
