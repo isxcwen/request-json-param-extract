@@ -1,7 +1,7 @@
 # request-json-param-extract
 用于springboot的@RequestBody json对象属性的参数解析
 
-**支持SpringMVC 与 WebFLux**
+**支持SpringMVC 与 WebFlux**
 
 ## 介绍
 在springboot项目中对于post的json请求往往需要定义一个Model去接收或者JSON工具去转换
