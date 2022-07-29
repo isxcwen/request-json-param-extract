@@ -1,4 +1,7 @@
 # request-json-param-extract
+用于springboot的@RequestBody json对象属性的参数解析
+
+**支持SpringMVC 与 WebFLux**
 
 ## 介绍
 在springboot项目中对于post的json请求往往需要定义一个Model去接收或者JSON工具去转换
@@ -24,6 +27,7 @@
         @RequestBodyExtract("address") Address address){
         return "success";
     }
+
 
 ## 本地maven安装
 mvn install:install-file -Dfile=method-paramter-resolve-0.0.1-SNAPSHOT.jar -DgroupId=resolve -DartifactId=param-resolve -Dversion='1.0' -Dpackaging=jar
