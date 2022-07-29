@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.paramresolve.config.MVCConfig,\
+com.paramresolve.config.WebFluxConfig
