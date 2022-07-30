@@ -14,7 +14,6 @@ public class BaseConfig {
     @Bean
     @ConditionalOnClass(name = "com.fasterxml.jackson.databind.ObjectMapper")
     public JsonOption jacksonOption(){
-        System.out.println("jacksonOption");
         JacksonOption jacksonOption = new JacksonOption();
         JsonUtils.setJsonOption(jacksonOption);
         return jacksonOption;
@@ -25,7 +24,6 @@ public class BaseConfig {
     @ConditionalOnMissingClass("com.fasterxml.jackson.databind.ObjectMapper")
     @ConditionalOnClass(name = "com.alibaba.fastjson.JSONObject")
     public JsonOption fastjsonOption(){
-        System.out.println("fastjsonOption");
         FastJsonOption fastJsonOption = new FastJsonOption();
         JsonUtils.setJsonOption(fastJsonOption);
         return fastJsonOption;
