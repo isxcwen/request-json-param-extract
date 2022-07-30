@@ -10,10 +10,9 @@ import reactor.core.publisher.Mono;
 import resolve.annotations.RequestBodyExtract;
 import resolve.constant.Constants;
 import resolve.utils.ArgumentResolveUtils;
-import resolve.utils.JSONUtils;
+import resolve.utils.JsonUtils;
 
 import java.lang.reflect.Method;
-import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -49,18 +48,13 @@ public class WebFluxRequestBodyExtractMethodArgumentResolver extends AbstractMes
 
     /**
      * 读取请求体中的数据
-     * @param bindingContext
-     * @param exchange
-     * @return
      */
     private Mono<Map<String, Object>> readBody(BindingContext bindingContext, ServerWebExchange exchange){
-        return readBody(getStringMethodParameter(), true, bindingContext, exchange).cast(String.class).map(body -> JSONUtils.convertObject(body, Map.class));
+        return readBody(getStringMethodParameter(), true, bindingContext, exchange).cast(String.class).map(body -> JsonUtils.convertObject(body, Map.class));
     }
 
     /**
      * body缓存起来 多次使用
-     * @param exchange
-     * @param data
      */
     private void cacheBody(ServerWebExchange exchange, Mono<Map<String, Object>> data){
         exchange.getAttributes().put(Constants.REQUEST_BODY_READED, true);
@@ -69,7 +63,6 @@ public class WebFluxRequestBodyExtractMethodArgumentResolver extends AbstractMes
 
     /**
      * 获取String类型请求体
-     * @return
      */
     private MethodParameter getStringMethodParameter(){
         if(this.stringMethodParameter == null){

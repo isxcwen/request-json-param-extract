@@ -1,4 +1,4 @@
-package resolve.utils;
+package resolve.utils.handler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
@@ -8,18 +8,14 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.lang.reflect.Type;
 
-public class JSONUtils {
-    private static ObjectMapper objectMapper;
+public class JacksonOption implements JsonOption {
+    private ObjectMapper objectMapper;
 
-    /**
-     * 获取json操作对象
-     * @return
-     */
-    private static ObjectMapper getObjectMapper() {
-        if(JSONUtils.objectMapper == null){
-            JSONUtils.objectMapper = init();
+    private ObjectMapper getObjectMapper() {
+        if(this.objectMapper == null){
+            this.objectMapper = init();
         }
-        return JSONUtils.objectMapper;
+        return this.objectMapper;
     }
 
     private static ObjectMapper init(){
@@ -31,7 +27,8 @@ public class JSONUtils {
         return objectMapper;
     }
 
-    public static String convertString(Object content){
+    @Override
+    public String convertString(Object content){
         try {
             return getObjectMapper().writeValueAsString(content);
         } catch (JsonProcessingException e) {
@@ -39,7 +36,11 @@ public class JSONUtils {
         }
     }
 
-    public static Object convertObject(String content, Type type){
+    @Override
+    public Object convertObject(String content, Type type){
+        if(type instanceof Class && ((Class<?>) type).isAssignableFrom(String.class)){
+            return content;
+        }
         JavaType javaType = getObjectMapper().constructType(type);
         try {
             return getObjectMapper().readValue(content, javaType);
@@ -48,7 +49,8 @@ public class JSONUtils {
         }
     }
 
-    public static <T> T convertObject(String content, Class<T> clazz){
+    @Override
+    public <T> T convertObject(String content, Class<T> clazz){
         try {
             return getObjectMapper().readValue(content, clazz);
         } catch (JsonProcessingException e) {

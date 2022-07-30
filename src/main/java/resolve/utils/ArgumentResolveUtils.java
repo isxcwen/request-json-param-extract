@@ -33,13 +33,13 @@ public class ArgumentResolveUtils {
     private static Object getValue(Map<String, Object> data, String name, Type type, boolean required, String defaultValue) {
         Object value = data.get(name);
         if(value != null){
-            return JSONUtils.convertObject(JSONUtils.convertString(value), type);
+            return JsonUtils.convertObject(JsonUtils.convertString(value), type);
         }else {
             if(required){
-                Assert.state(!ValueConstants.DEFAULT_NONE.equals(defaultValue), "param " + name +" is required");
+                Assert.state(!ValueConstants.DEFAULT_NONE.equals(defaultValue), "param [" + name + "] is required");
             }
             if(!ValueConstants.DEFAULT_NONE.equals(defaultValue)){
-                return JSONUtils.convertObject(defaultValue, type);
+                return JsonUtils.convertObject(defaultValue, type);
             }
 
         }

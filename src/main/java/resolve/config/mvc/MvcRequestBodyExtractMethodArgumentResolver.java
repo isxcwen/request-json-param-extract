@@ -14,7 +14,7 @@ import org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConv
 import resolve.annotations.RequestBodyExtract;
 import resolve.constant.Constants;
 import resolve.utils.ArgumentResolveUtils;
-import resolve.utils.JSONUtils;
+import resolve.utils.JsonUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -23,8 +23,8 @@ import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.Map;
 
-public class MVCRequestBodyExtractMethodArgumentResolver extends AbstractMessageConverterMethodArgumentResolver {
-    public MVCRequestBodyExtractMethodArgumentResolver() {
+public class MvcRequestBodyExtractMethodArgumentResolver extends AbstractMessageConverterMethodArgumentResolver {
+    public MvcRequestBodyExtractMethodArgumentResolver() {
         super(Arrays.asList(new StringHttpMessageConverter(Charset.defaultCharset())));
     }
 
@@ -53,7 +53,7 @@ public class MVCRequestBodyExtractMethodArgumentResolver extends AbstractMessage
 
     private boolean isReaded(NativeWebRequest webRequest){
         Object attribute = webRequest.getAttribute(Constants.REQUEST_BODY_READED, RequestAttributes.SCOPE_REQUEST);
-        return attribute == null ? false : (Boolean) attribute;
+        return attribute != null && (Boolean) attribute;
     }
 
     private Map<String, Object> getCache(NativeWebRequest webRequest){
@@ -62,19 +62,14 @@ public class MVCRequestBodyExtractMethodArgumentResolver extends AbstractMessage
 
     /**
      * 读取请求体中的数据
-     * @param webRequest
-     * @param parameter
-     * @return
      */
     private Map<String, Object> readBody(NativeWebRequest webRequest, MethodParameter parameter) throws HttpMediaTypeNotSupportedException, IOException {
         String body = (String) readWithMessageConverters(webRequest, parameter, String.class);
-        return JSONUtils.convertObject(body, Map.class);
+        return JsonUtils.convertObject(body, Map.class);
     }
 
     /**
      * body缓存起来 多次使用
-     * @param webRequest
-     * @param data
      */
     private void cacheBody(NativeWebRequest webRequest, Map<String, Object> data){
         webRequest.setAttribute(Constants.REQUEST_BODY_READED, true, RequestAttributes.SCOPE_REQUEST);
