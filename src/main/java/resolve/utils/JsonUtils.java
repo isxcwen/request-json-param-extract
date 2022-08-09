@@ -23,7 +23,7 @@ public class JsonUtils {
 
     public static Object convertObject(String content, Type type) {
         mustInit();
-        if(type == String.class){
+        if(type instanceof Class && ((Class<?>) type).isAssignableFrom(String.class)){
             return content;
         }
         return jsonOption.convertObject(content, type);
