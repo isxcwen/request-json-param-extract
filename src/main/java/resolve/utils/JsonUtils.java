@@ -15,16 +15,25 @@ public class JsonUtils {
 
     public static String convertString(Object content) {
         mustInit();
+        if(content instanceof String){
+            return (String)content;
+        }
         return jsonOption.convertString(content);
     }
 
     public static Object convertObject(String content, Type type) {
         mustInit();
+        if(type == String.class){
+            return content;
+        }
         return jsonOption.convertObject(content, type);
     }
 
     public static <T> T convertObject(String content, Class<T> clazz) {
         mustInit();
+        if(clazz == String.class){
+            return (T)content;
+        }
         return jsonOption.convertObject(content, clazz);
     }
 
